@@ -48,8 +48,8 @@ function loadHeader() {
                     });
                 }
                 
-                // Add mobile menu (links are relative to root directory, so prefix with automation/)
-                const menuHtml = `
+        // Add mobile menu (links are relative to root directory, so prefix with automation/ if needed, but since we are at root level domain now, use relative basePath or absolute subdomains)
+        const menuHtml = `
 <style>
     .mobile-menu-overlay {
         display: none;
@@ -99,6 +99,9 @@ function loadHeader() {
     }
     .mobile-menu-list li {
         margin-bottom: 8px;
+    }
+    .mobile-menu-list li a {
+        text-decoration: none;
     }
     .mobile-menu-item {
         color: #e2e8f0;
@@ -157,32 +160,32 @@ function loadHeader() {
                     <span id="auto-arrow" class="mobile-dropdown-arrow">&#9654;</span>
                 </div>
                 <ul id="automation-dropdown" class="mobile-dropdown-menu">
-                    <li><a href="${basePath}automation/index.html" class="mobile-submenu-item">Overview Dashboard</a></li>
-                    <li><a href="${basePath}automation/practices/beginner/b-1.01-click.html" class="mobile-submenu-item">Beginner Tasks</a></li>
-                    <li><a href="${basePath}automation/practices/intermediate/i-2.01-draganddroptext.html" class="mobile-submenu-item">Intermediate Tasks</a></li>
-                    <li><a href="${basePath}automation/practices/advanced/a-3.01-hiddenelement.html" class="mobile-submenu-item">Advanced Tasks</a></li>
+                    <li><a href="${basePath}index.html" class="mobile-submenu-item">Overview Dashboard</a></li>
+                    <li><a href="${basePath}practices/beginner/b-1.01-click.html" class="mobile-submenu-item">Beginner Tasks</a></li>
+                    <li><a href="${basePath}practices/intermediate/i-2.01-draganddroptext.html" class="mobile-submenu-item">Intermediate Tasks</a></li>
+                    <li><a href="${basePath}practices/advanced/a-3.01-hiddenelement.html" class="mobile-submenu-item">Advanced Tasks</a></li>
                 </ul>
             </li>
-            <li><a href="${basePath}compiler/index.html" class="mobile-menu-item">💻 DevCompiler IDE</a></li>
-            <li><a href="${basePath}quiz/index.html" class="mobile-menu-item">📝 Quiz Master</a></li>
+            <li><a href="https://compiler.futurelab.co.in/" class="mobile-menu-item">💻 DevCompiler IDE</a></li>
+            <li><a href="https://techquiz.futurelab.co.in/" class="mobile-menu-item">📝 Quiz Master</a></li>
             <li>
                 <div onclick="event.stopPropagation(); toggleHealthcareDropdown()" class="mobile-menu-item">
                     <span>💠 Shukla Healthcare</span>
                     <span id="health-arrow" class="mobile-dropdown-arrow">&#9654;</span>
                 </div>
                 <ul id="healthcare-dropdown" class="mobile-dropdown-menu">
-                    <li><a href="${basePath}healthcare/index.html" class="mobile-submenu-item">Landing Portal</a></li>
-                    <li><a href="${basePath}healthcare/app/index.html" class="mobile-submenu-item">SQL Practice Studio</a></li>
+                    <li><a href="https://sql.futurelab.co.in/" class="mobile-submenu-item">Landing Portal</a></li>
+                    <li><a href="https://sql.futurelab.co.in/app/index.html" class="mobile-submenu-item">SQL Practice Studio</a></li>
                 </ul>
             </li>
-            <li><a href="${basePath}library-api/index.html" class="mobile-menu-item">📚 Library API Sandbox</a></li>
+            <li><a href="https://api.futurelab.co.in/" class="mobile-menu-item">📚 Library API Sandbox</a></li>
         </ul>
         
         <h4>General Links</h4>
         <ul class="mobile-menu-list">
-            <li><a href="${basePath}index.html" class="mobile-menu-item">🏠 Portfolio Home</a></li>
-            <li><a href="${basePath}developer.html" class="mobile-menu-item">👨‍💻 About Developer</a></li>
-            <li><a href="${basePath}automation/faq.html" class="mobile-menu-item">❓ FAQ Help</a></li>
+            <li><a href="https://www.futurelab.co.in/" class="mobile-menu-item">🏠 Portfolio Home</a></li>
+            <li><a href="https://www.futurelab.co.in/developer.html" class="mobile-menu-item">👨‍💻 About Developer</a></li>
+            <li><a href="${basePath}faq.html" class="mobile-menu-item">❓ FAQ Help</a></li>
         </ul>
     </div>
 </div>`;
