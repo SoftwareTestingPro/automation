@@ -357,4 +357,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add scroll listener
     window.addEventListener('scroll', handleBackToTopScroll);
+
+    // Auto-scroll message elements into view when they become visible or are added
+    const scrollMessageIntoView = (el) => {
+        if (el.classList && el.classList.contains('message')) {
+            const display = window.getComputedStyle(el).display;
+            if (display !== 'none' && !el.dataset.scrolled) {
+                // Smooth scroll to the message element so it is visible to the user
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                el.dataset.scrolled = "true";
+                setTimeout(() => {
+                    el.removeAttribute('data-scrolled');
+                }, 1000);
+            }
+        }
+    };
+
+    const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            if (mutation.type === 'attributes' && (mutation.attributeName === 'style' || mutation.attributeName === 'class')) {
+                scrollMessageIntoView(mutation.target);
+            } else if (mutation.type === 'childList') {
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === 1) { // Element node
+                        if (node.classList && node.classList.contains('message')) {
+                            scrollMessageIntoView(node);
+                        }
+                        const messages = node.querySelectorAll('.message');
+                        messages.forEach(scrollMessageIntoView);
+                    }
+                });
+            }
+        });
+    });
+
+    observer.observe(document.body, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+        attributeFilter: ['style', 'class']
+    });
 });
