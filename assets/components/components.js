@@ -234,8 +234,8 @@ function updateVisitorCounter() {
     const startingOffset = 14324; // Since the API starts at 1, setting offset to 14,324 results in starting at 14,325
     
     // We increment the count on every page view/load by hitting the 'up' API of counterapi.dev
-    // Namespace: softwaretestingpro, Key: visits
-    fetch('https://api.counterapi.dev/v1/softwaretestingpro/visits/up')
+    // Namespace: futurelab, Key: visits
+    fetch('https://api.counterapi.dev/v1/futurelab/visits/up')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();

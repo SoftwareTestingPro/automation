@@ -1,18 +1,18 @@
-# SoftwareTestingPro.github.io
+# FutureLab.github.io
 
-[![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-blue)](https://softwaretestingpro.github.io/)
+[![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-blue)](https://automation.futurelab.co.in/)
 [![License](https://img.shields.io/badge/License-MIT-green)](#license)
 [![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen)](#contributing)
 
 > **A comprehensive, interactive practice platform for test automation professionals and learners.**
 
-[🚀 Visit the Website](https://softwaretestingpro.github.io/) | [📚 Features](#features) | [🎯 Sections](#sections) | [💡 Use Cases](#use-cases) | [📝 License](#license)
+[🚀 Visit the Website](https://automation.futurelab.co.in/) | [📚 Features](#features) | [🎯 Sections](#sections) | [💡 Use Cases](#use-cases) | [📝 License](#license)
 
 ---
 
 ## 📖 Overview
 
-**SoftwareTestingPro** is an interactive web-based learning and practice platform designed for test automation engineers, QA professionals, and developers who want to sharpen their testing skills. The platform provides hundreds of hands-on practice tasks covering beginner to advanced automation scenarios across multiple technologies and tools.
+**FutureLab** is an interactive web-based learning and practice platform designed for test automation engineers, QA professionals, and developers who want to sharpen their testing skills. The platform provides hundreds of hands-on practice tasks covering beginner to advanced automation scenarios across multiple technologies and tools.
 
 Whether you're preparing for interviews, learning Selenium, Playwright, or improving your API testing skills, this platform offers realistic, browser-based challenges that mirror real-world testing problems.
 
@@ -168,7 +168,7 @@ Fun programming and logic challenges:
 ## 🚀 Getting Started
 
 ### Visit the Website
-1. Navigate to [https://softwaretestingpro.github.io/](https://softwaretestingpro.github.io/)
+1. Navigate to [https://automation.futurelab.co.in/](https://automation.futurelab.co.in/)
 2. Select a section (Automation, Quiz, Kids, etc.)
 3. Choose a difficulty level or topic
 4. Click on a task to begin
@@ -211,7 +211,7 @@ Fun programming and logic challenges:
 
 ---
 
-## 🌟 Why Choose SoftwareTestingPro?
+## 🌟 Why Choose FutureLab?
 
 ✅ **100% Free** - No subscriptions or paywalls
 ✅ **Browser-Based** - No downloads or installations required
@@ -231,21 +231,21 @@ We respect your privacy. The website collects minimal data:
 - No personal information is stored
 - Analytics data via Google Analytics (optional)
 - Cookies only for essential functionality
-- [Read Full Privacy Policy](https://softwaretestingpro.github.io/privacy.html)
+- [Read Full Privacy Policy](https://automation.futurelab.co.in/privacy.html)
 
 ### Terms of Service
 By using this website, you agree to:
 - Use only for educational purposes
 - Not attempt malicious activities
 - Respect intellectual property rights
-- [Read Full Terms](https://softwaretestingpro.github.io/terms.html)
+- [Read Full Terms](https://automation.futurelab.co.in/terms.html)
 
 ### Affiliate Disclosure
 Some links on this site may be affiliate links:
 - No extra cost to you
 - Helps support site maintenance
 - Transparent about relationships
-- [Read Full Disclosure](https://softwaretestingpro.github.io/disclosure.html)
+- [Read Full Disclosure](https://automation.futurelab.co.in/disclosure.html)
 
 ---
 
@@ -253,7 +253,7 @@ Some links on this site may be affiliate links:
 
 We welcome contributions and feedback! Ways to help:
 
-1. **Report Issues**: Found a bug? [Open an issue](https://github.com/SoftwareTestingPro/SoftwareTestingPro.github.io/issues)
+1. **Report Issues**: Found a bug? [Open an issue](https://github.com/FutureLab/FutureLab.github.io/issues)
 2. **Suggest Features**: Have an idea? Share it with us
 3. **Add Tasks**: Submit new automation scenarios
 4. **Improve Content**: Fix typos or enhance explanations
@@ -262,7 +262,7 @@ We welcome contributions and feedback! Ways to help:
 ### How to Contribute
 ```bash
 # Fork the repository
-git clone https://github.com/YourUsername/SoftwareTestingPro.github.io.git
+git clone https://github.com/YourUsername/FutureLab.github.io.git
 
 # Create a feature branch
 git checkout -b feature/your-feature-name
@@ -280,9 +280,9 @@ git push origin feature/your-feature-name
 
 Have questions or need help?
 
-- **Email**: [Contact Us](mailto:contact@softwaretestingpro.com)
+- **Email**: [Contact Us](mailto:contact@futurelab.com)
 - **Form**: [Contact Form](https://forms.gle/GFYLiy6VJ8b2BEKj6)
-- **About Developer**: [Meet the Creator](https://softwaretestingpro.github.io/developer.html)
+- **About Developer**: [Meet the Creator](https://automation.futurelab.co.in/developer.html)
 
 ---
 
@@ -371,11 +371,11 @@ This project is licensed under the **MIT License** - see the LICENSE file for de
 
 | Resource | Link |
 |----------|------|
-| Website | [softwaretestingpro.github.io](https://softwaretestingpro.github.io/) |
-| GitHub | [GitHub Repository](https://github.com/SoftwareTestingPro/SoftwareTestingPro.github.io) |
-| Sitemap | [Full Sitemap](https://softwaretestingpro.github.io/sitemap.xml) |
-| Privacy | [Privacy Policy](https://softwaretestingpro.github.io/privacy.html) |
-| Terms | [Terms of Service](https://softwaretestingpro.github.io/terms.html) |
+| Website | [futurelab.github.io](https://automation.futurelab.co.in/) |
+| GitHub | [GitHub Repository](https://github.com/FutureLab/FutureLab.github.io) |
+| Sitemap | [Full Sitemap](https://automation.futurelab.co.in/sitemap.xml) |
+| Privacy | [Privacy Policy](https://automation.futurelab.co.in/privacy.html) |
+| Terms | [Terms of Service](https://automation.futurelab.co.in/terms.html) |
 
 ---
 
