@@ -1,5 +1,5 @@
 // Load header and footer components
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM loaded, starting component loading');
     loadHeader();
     loadFooter();
@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
 function getBasePath() {
     const pathname = window.location.pathname;
     const parts = pathname.split('/').filter(segment => segment);
-    
+
     let depth = parts.length;
     if (parts.length > 0 && parts[parts.length - 1].includes('.')) {
         depth -= 1;
     }
-    
+
     if (depth <= 0) return './';
-    
+
     let path = '';
     for (let i = 0; i < depth; i++) {
         path += '../';
@@ -29,7 +29,7 @@ function loadHeader() {
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
         const basePath = getBasePath();
-        
+
         fetch(basePath + 'header.html')
             .then(response => {
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -38,7 +38,7 @@ function loadHeader() {
             .then(html => {
                 if (html && html.includes('site-header')) {
                     headerPlaceholder.innerHTML = html;
-                    
+
                     const links = headerPlaceholder.querySelectorAll('a');
                     links.forEach(link => {
                         const href = link.getAttribute('href');
@@ -47,9 +47,9 @@ function loadHeader() {
                         }
                     });
                 }
-                
-        // Add mobile menu (links are relative to root directory, so prefix with automation/ if needed, but since we are at root level domain now, use relative basePath or absolute subdomains)
-        const menuHtml = `
+
+                // Add mobile menu (links are relative to root directory, so prefix with automation/ if needed, but since we are at root level domain now, use relative basePath or absolute subdomains)
+                const menuHtml = `
 <style>
     .mobile-menu-overlay {
         display: none;
@@ -170,7 +170,7 @@ function loadHeader() {
             <li><a href="https://techquiz.futurelab.co.in/" class="mobile-menu-item">📝 Quiz Master</a></li>
             <li>
                 <div onclick="event.stopPropagation(); toggleHealthcareDropdown()" class="mobile-menu-item">
-                    <span>💠 Shukla Healthcare</span>
+                    <span>💠  Healthcare</span>
                     <span id="health-arrow" class="mobile-dropdown-arrow">&#9654;</span>
                 </div>
                 <ul id="healthcare-dropdown" class="mobile-dropdown-menu">
@@ -201,7 +201,7 @@ function loadFooter() {
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
         const basePath = getBasePath();
-        
+
         fetch(basePath + 'footer.html')
             .then(response => {
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -209,7 +209,7 @@ function loadFooter() {
             })
             .then(html => {
                 footerPlaceholder.innerHTML = html;
-                
+
                 const links = footerPlaceholder.querySelectorAll('a');
                 links.forEach(link => {
                     const href = link.getAttribute('href');
@@ -217,7 +217,7 @@ function loadFooter() {
                         link.href = basePath + href;
                     }
                 });
-                
+
                 // Fetch and update visitor count
                 updateVisitorCounter();
             })
@@ -230,9 +230,9 @@ function loadFooter() {
 function updateVisitorCounter() {
     const visitorCountEl = document.getElementById('visitor-count');
     if (!visitorCountEl) return;
-    
+
     const startingOffset = 14324; // Since the API starts at 1, setting offset to 14,324 results in starting at 14,325
-    
+
     // We increment the count on every page view/load by hitting the 'up' API of counterapi.dev
     // Namespace: futurelab, Key: visits
     fetch('https://api.counterapi.dev/v1/futurelab/visits/up')
@@ -352,9 +352,9 @@ function handleBackToTopScroll() {
 }
 
 // Initialize back to top when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     createBackToTopButton();
-    
+
     // Add scroll listener
     window.addEventListener('scroll', handleBackToTopScroll);
 });
