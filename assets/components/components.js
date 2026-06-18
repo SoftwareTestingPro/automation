@@ -185,6 +185,7 @@ function loadHeader() {
         <ul class="mobile-menu-list">
             <li><a href="https://www.futurelab.co.in/" class="mobile-menu-item">🏠 Portfolio Home</a></li>
             <li><a href="https://www.futurelab.co.in/developer.html" class="mobile-menu-item">👨‍💻 About Developer</a></li>
+            <li><a href="#" onclick="event.preventDefault(); toggleMenu(); openSuggestTaskModal()" class="mobile-menu-item">💡 Suggest a Task</a></li>
             <li><a href="${basePath}faq.html" class="mobile-menu-item">❓ FAQ Help</a></li>
         </ul>
     </div>
@@ -398,3 +399,305 @@ document.addEventListener('DOMContentLoaded', function () {
         attributeFilter: ['style', 'class']
     });
 });
+
+// Dynamic task suggestion modal implementation
+(function() {
+    // Inject suggest modal HTML and styles
+    const modalStyle = `
+        .suggest-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 20, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .suggest-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .suggest-modal-card {
+            background: #0f0f23;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2), inset 0 0 15px rgba(0, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            font-family: 'Outfit', sans-serif;
+            color: #ffffff;
+            box-sizing: border-box;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .suggest-modal-overlay.active .suggest-modal-card {
+            transform: scale(1);
+        }
+        .suggest-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 0, 255, 0.2);
+            padding-bottom: 12px;
+        }
+        .suggest-modal-header h3 {
+            color: #ff00ff;
+            font-size: 20px;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .suggest-modal-close {
+            background: transparent;
+            border: none;
+            color: #a0aec0;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .suggest-modal-close:hover {
+            color: #ff00ff;
+        }
+        .suggest-form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .suggest-form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+        .suggest-form-group input, 
+        .suggest-form-group textarea, 
+        .suggest-form-group select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #ffffff;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .suggest-form-group input:focus, 
+        .suggest-form-group textarea:focus, 
+        .suggest-form-group select:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        .suggest-form-group select option {
+            background: #0f0f23;
+            color: #ffffff;
+        }
+        .suggest-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            margin-top: 10px;
+        }
+        .suggest-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+        .suggest-success-content {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .suggest-success-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .suggest-success-content h4 {
+            color: #00ffff;
+            font-size: 22px;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        .suggest-success-content p {
+            color: #cbd5e1;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .suggest-close-success-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .suggest-close-success-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    `;
+
+    const modalHtml = `
+        <div id="suggest-task-modal" class="suggest-modal-overlay">
+            <div class="suggest-modal-card">
+                <div class="suggest-modal-header">
+                    <h3>💡 Suggest a New Task</h3>
+                    <button class="suggest-modal-close" onclick="closeSuggestTaskModal()">&times;</button>
+                </div>
+                <form id="suggest-task-form" onsubmit="submitTaskSuggestion(event)">
+                    <div class="suggest-form-group">
+                        <label for="suggest-task-title">Task Title</label>
+                        <input type="text" id="suggest-task-title" required placeholder="e.g., File Upload Challenge">
+                    </div>
+                    <div class="suggest-form-group">
+                        <label for="suggest-task-desc">Description & Details</label>
+                        <textarea id="suggest-task-desc" required rows="4" placeholder="Explain what the task should test and how it works..."></textarea>
+                    </div>
+                    <div class="suggest-form-group">
+                        <label for="suggest-task-difficulty">Estimated Difficulty</label>
+                        <select id="suggest-task-difficulty" required>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate" selected>Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="suggest-form-group">
+                        <label for="suggest-task-email">Your Email (Optional)</label>
+                        <input type="email" id="suggest-task-email" placeholder="e.g., tester@example.com">
+                    </div>
+                    <button type="submit" class="suggest-submit-btn">Submit Suggestion</button>
+                </form>
+                <div id="suggest-task-success" class="suggest-success-content">
+                    <span class="suggest-success-icon">🎉</span>
+                    <h4>Thank You!</h4>
+                    <p>Your suggestion has been submitted successfully. We appreciate your ideas to improve the platform!</p>
+                    <button onclick="closeSuggestTaskModal()" class="suggest-close-success-btn">Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Initialize Suggest Modal setup on DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inject style
+        const styleEl = document.createElement('style');
+        styleEl.textContent = modalStyle;
+        document.head.appendChild(styleEl);
+
+        // Inject modal HTML
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = modalHtml;
+        document.body.appendChild(wrapper.firstElementChild);
+    });
+
+    // Make functions globally accessible
+    window.openSuggestTaskModal = function() {
+        const modal = document.getElementById('suggest-task-modal');
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+    };
+
+    window.closeSuggestTaskModal = function() {
+        const modal = document.getElementById('suggest-task-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                // Reset form and message states
+                document.getElementById('suggest-task-form').style.display = 'block';
+                document.getElementById('suggest-task-success').style.display = 'none';
+                document.getElementById('suggest-task-form').reset();
+            }, 300);
+        }
+    };
+
+    window.submitTaskSuggestion = function(event) {
+        event.preventDefault();
+        
+        const titleInput = document.getElementById('suggest-task-title');
+        const descriptionInput = document.getElementById('suggest-task-desc');
+        const difficultyInput = document.getElementById('suggest-task-difficulty');
+        const emailInput = document.getElementById('suggest-task-email');
+
+        const submitBtn = event.target.querySelector('.suggest-submit-btn');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+        }
+
+        const payload = {
+            "Task Title": titleInput.value,
+            "Description": descriptionInput.value,
+            "Estimated Difficulty": difficultyInput.value,
+            "Email Address": emailInput.value || 'Not provided',
+            "_subject": `New Task Suggestion: ${titleInput.value}`
+        };
+
+        // Submit form fields using FormSubmit AJAX API
+        fetch("https://formsubmit.co/ajax/hello@futurelab.co.in", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Form submission failed");
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Persist local state for demonstrations or verification
+            let suggestions = JSON.parse(localStorage.getItem('taskSuggestions') || '[]');
+            suggestions.push({
+                title: titleInput.value,
+                description: descriptionInput.value,
+                difficulty: difficultyInput.value,
+                email: emailInput.value,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('taskSuggestions', JSON.stringify(suggestions));
+
+            // Transition to success state
+            document.getElementById('suggest-task-form').style.display = 'none';
+            document.getElementById('suggest-task-success').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error submitting suggestion:', error);
+            alert('There was a problem sending your suggestion. Please try again or email hello@futurelab.co.in directly.');
+        })
+        .finally(() => {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Suggestion';
+            }
+        });
+    };
+})();

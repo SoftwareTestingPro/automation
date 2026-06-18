@@ -702,6 +702,73 @@ header.site-header.glitch {
     animation: glitch 0.3s ease-in-out;
 }
 
+.suggest-task-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #ff00ff;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.25rem 0.75rem;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 0, 255, 0.1);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+    font-family: 'Courier New', monospace;
+    margin-left: 1rem;
+    z-index: 10;
+}
+
+.suggest-task-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.suggest-task-link:hover::before {
+    left: 100%;
+}
+
+.suggest-task-link:hover {
+    color: #ffffff;
+    background: rgba(255, 0, 255, 0.2);
+    border-color: #ff00ff;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(255, 0, 255, 0.4), 0 0 30px rgba(255, 0, 255, 0.6);
+    text-shadow: 0 0 15px rgba(255, 0, 255, 1);
+    animation: suggestGlow 2s ease-in-out infinite;
+}
+
+@keyframes suggestGlow {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(255, 0, 255, 0.4), 0 0 30px rgba(255, 0, 255, 0.6);
+        border-color: #ff00ff;
+    }
+    50% {
+        box-shadow: 0 8px 25px rgba(255, 0, 255, 0.6), 0 0 40px rgba(255, 0, 255, 0.8);
+        border-color: #ffffff;
+    }
+}
+
+.suggest-icon {
+    font-size: 16px;
+    filter: drop-shadow(0 0 5px rgba(255, 0, 255, 0.8));
+    transition: transform 0.3s ease;
+}
+
+.suggest-task-link:hover .suggest-icon {
+    transform: scale(1.2) rotate(15deg);
+    filter: drop-shadow(0 0 8px rgba(255, 0, 255, 1));
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     header.site-header {
@@ -712,12 +779,16 @@ header.site-header.glitch {
         max-width: 100%;
     }
 
-    .home-text {
+    .home-text, .suggest-text {
         display: none;
     }
 
-    .home-link {
+    .home-link, .suggest-task-link {
         padding: 0.25rem;
+    }
+    
+    .suggest-task-link {
+        margin-left: 0.5rem;
     }
 }
 
